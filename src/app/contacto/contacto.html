@@ -1,0 +1,225 @@
+<header class="header header-contacto">
+    <h1 class="header__titulo">FORMULARIO DE CONTACTO</h1>
+
+</header>
+
+<main class="contenedor contenido-principal">
+
+    <h2 class="tituloSecundario">Contacto</h2>
+
+    <div class="contacto__contenido">
+
+        <div class="contacto_redes">
+
+            <!-- Email -->
+            <div class="contacto_item">
+                <i class="fas fa-envelope"></i>
+                <p>consultas@correo.com</p>
+            </div>
+
+            <!-- Dirección -->
+            <div class="contacto_item">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>Av calle 45 #56-67</p>
+            </div>
+
+            <!-- Teléfonos -->
+            <div class="contacto_item">
+                <i class="fas fa-phone"></i>
+                <p>45454544 / 454545454</p>
+            </div>
+
+            <!-- Redes sociales -->
+            <div class="redes_sociales">
+
+                <a href="#" class="icono facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="#" class="icono instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="#" class="icono twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <form [formGroup]="formulario" (ngSubmit)="enviar()">
+            <div class="campo">
+                <select formControlName="sex">
+                    <option value="" disabled>Sexo*</option>
+                    <option value="Hombre">Hombre</option>
+                    <option value="Mujer">Mujer</option>
+                </select>
+                <p class="error" *ngIf="formulario.get('sex')?.touched && formulario.get('sex')?.invalid">
+                    Campo obligatorio
+                </p>
+            </div>
+            <div class="campo">
+                <input type="text" id="nacimiento" formControlName="date_birthday" placeholder="Fecha de nacimiento*"
+                    maxlength="10">
+                <p class="error" *ngIf="formulario.get('date_birthday')?.touched">
+
+                    <span *ngIf="formulario.get('date_birthday')?.errors?.['required']">
+                        Campo obligatorio
+                    </span>
+
+                    <span *ngIf="!formulario.get('date_birthday')?.errors?.['required'] 
+               && formulario.get('date_birthday')?.errors?.['pattern']">
+                        Formato inválido (YYYY-MM-DD)
+                    </span>
+
+                    <span *ngIf="!formulario.get('date_birthday')?.errors?.['required'] 
+               && !formulario.get('date_birthday')?.errors?.['pattern']
+               && formulario.get('date_birthday')?.errors?.['menorEdad']">
+                        Debes ser mayor de 18 años
+                    </span>
+
+                </p>
+            </div>
+            <div class="campo">
+                <input type="text" id="nombre" formControlName="name" placeholder="Nombre*">
+                <p class="error" *ngIf="formulario.get('name')?.touched && formulario.get('name')?.invalid">
+                    Nombre obligatorio
+                </p>
+            </div>
+            <div class="campo">
+                <input type="text" id="apellido" formControlName="last_name" placeholder="Apellido*">
+                <p class="error" *ngIf="formulario.get('last_name')?.touched && formulario.get('last_name')?.invalid">
+                    Apellido obligatorio
+                </p>
+            </div>
+
+            <div class="campo full">
+                <input type="email" id="email" formControlName="email" placeholder="Email*">
+
+                <p class="error" *ngIf="formulario.get('email')?.touched && formulario.get('email')?.invalid">
+                    Email inválido
+                </p>
+            </div>
+
+            <div class="campo full">
+                <input type="text" id="direccion" formControlName="addres" placeholder="Direccion*">
+                <p class="error" *ngIf="formulario.get('addres')?.touched && formulario.get('addres')?.invalid">
+                    Dirección Obligatoria
+                </p>
+            </div>
+
+            <div class="campo">
+                <input type="text" id="casa" formControlName="apto" placeholder="Casa / apartamento">
+            </div>
+
+
+            <div class="campo">
+                <select formControlName="country">
+                    <option value="" disabled>País*</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Mexico">México</option>
+                </select>
+                <p class="error" *ngIf="formulario.get('country')?.touched && formulario.get('country')?.invalid">
+                    País obligatoria
+                </p>
+            </div>
+
+            <div class="campo" *ngIf="formulario.get('country')?.value === 'Colombia'">
+                <select formControlName="deparment">
+                    <option value="" disabled>Departamento*</option>
+                    <option value="Cundinamarca">Cundinamarca</option>
+                    <option value="Valle">Valle</option>
+                    <option value="Caldas">Caldas</option>
+                </select>
+                <p class="error" *ngIf="formulario.get('deparment')?.touched && formulario.get('deparment')?.invalid">
+                    Departamento obligatorio
+                </p>
+            </div>
+
+            <div class="campo">
+                <select formControlName="city" *ngIf="formulario.get('country')?.value === 'Colombia'">
+                    <option value="" disabled>Ciudad*</option>
+                    <option value="Bogota">Bogotá</option>
+                    <option value="Manizales">Manizales</option>
+                    <option value="Cali">Cali</option>
+                </select>
+                <p class="error" *ngIf="formulario.get('city')?.touched && formulario.get('city')?.invalid">
+                    Ciudad obligatoria
+                </p>
+            </div>
+
+            <div class="campo full">
+                <textarea placeholder="Comentarios*" formControlName="comment" rows="5"></textarea>
+                <p class="error" *ngIf="formulario.get('comment')?.touched && formulario.get('comment')?.invalid">
+                    Comentario obligatorio
+                </p>
+            </div>
+
+            <div class="campo">
+                <input type="submit" [value]="modoEdicion ? 'Actualizar' : 'Enviar'">
+            </div>
+        </form>
+
+    </div>
+
+    <h4>Lista de Contactos</h4>
+
+    <input type="text" placeholder="Buscar..." (input)="filtrar($event)">
+
+    <table class="tabla">
+
+        <thead>
+            <tr>
+                <th (click)="ordenar('name')">
+                    Nombre
+                    <span *ngIf="ordenCampo === 'name'">
+                        {{ ordenAsc ? '↑' : '↓' }}
+                    </span>
+                </th>
+
+                <th class="col-email" (click)="ordenar('email')">
+                    Email
+                    <span *ngIf="ordenCampo === 'email'">
+                        {{ ordenAsc ? '↑' : '↓' }}
+                    </span>
+                </th>
+
+                <th (click)="ordenar('country')">
+                    País
+                    <span *ngIf="ordenCampo === 'country'">
+                        {{ ordenAsc ? '↑' : '↓' }}
+                    </span>
+                </th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let usuario of usuarios$ | async as lista; let i = index">
+
+
+                <td>{{ usuario.name }}</td>
+                <td class="col-email">{{ usuario.email }}</td>
+                <td>{{ usuario.country }}</td>
+
+                <td>
+                    <button (click)="editar(usuario, i)">Editar</button>
+                </td>
+
+            </tr>
+        </tbody>
+
+    </table>
+
+
+</main>
+
+
+<footer class="footer">
+
+    <p class="copyright">Todos los derechos reservados</p>
+</footer>

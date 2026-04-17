@@ -1,0 +1,14 @@
+@use 'variables' as v;
+// Utilidades
+
+.text-center {
+    text-align: center;
+}
+
+.bg-primario {
+    background-color: v.$primario;
+}
+
+.padding-bottom-0 {
+    padding-bottom: 0 !important;
+}

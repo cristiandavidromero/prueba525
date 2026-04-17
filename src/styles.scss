@@ -1,1 +1,203 @@
-/* You can add global styles to this file, and also import other style files */
+@use './app/styles/variables' as *;
+
+@use './app/styles/mixins' as m;
+
+@use './app/styles/utilidades';
+
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+body {
+    font-family: $fuente_secundaria;
+    font-size: 1.6rem;
+    background-color: $cafeClaro;
+    margin: 0;
+    background-image: url("../public/img/fondo.jpg");
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: cover;
+ //  line-height: 1.8;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+
+    padding-right: 3rem;
+}
+
+textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid $primario;
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    font-family: inherit;
+    resize: vertical; /* solo permite agrandar hacia abajo */
+}
+
+
+p {
+    color: $negro;
+    font-size: 1.6rem;
+    line-height: 2;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+h1, h2, h3 {
+    font-family: $fuente_principal;
+    font-weight: 900;
+    margin: 0 0 $separacion 0;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.5;
+}
+h1 {
+    font-size: 4rem;
+}
+h2 {
+    font-size: 3.6rem;
+    color: $primario; 
+}
+
+.heading_blanco {
+    @extend h2;
+    color: $blanco;
+
+    span {
+        color: $blanco;
+    }
+
+    &::after {
+        display: none;
+    }
+}
+h3 {
+    font-size: 3.2rem;
+}
+
+h4 {
+    font-size: 3rem;
+}
+a {
+    text-decoration: none;
+    color: $negro;
+}
+img {
+    max-width: 100%;
+    display: block;
+}
+.contenedor {
+    max-width: 120rem;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.bg-white {
+    background-color: $blanco;
+}
+
+
+// Footer
+
+.footer {
+    background-color: $primario;
+    .footer__contenido {
+        padding: 5rem;
+
+        @include m.tablet { 
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;    
+        }
+    }
+
+    .copyright {
+        text-align: center;
+        margin: 0;
+        color: $blanco;
+        padding: 2rem;
+    }
+}
+
+.footer__box {
+    font-family: $fuenteCursiva;
+    text-align: center;
+    margin-bottom: $separacion;
+
+    @include m.tablet { 
+        margin-bottom: 0;
+    }
+
+    h3 {
+        font-family: $fuenteCursiva;
+        margin: 0 0 1rem 0;
+        font-size: 2.4rem;
+        color: $secundario;
+    }
+    p, a {
+        font-size: 2rem;
+        margin: 0;
+    }
+}
+
+.header {
+    padding: 2rem 0;
+    position: relative;
+
+    @include m.tablet
+     { 
+        min-height: 10rem;
+     }
+
+    &::before {
+        content: '';
+        background-color: $negro;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: 0;
+    }
+
+    &__titulo {
+        margin: 2.5rem auto 2rem auto;
+        color: $blanco;
+
+        @include m.tablet {
+            margin: 2.5rem auto 12rem auto;
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
